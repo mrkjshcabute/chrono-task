@@ -3,6 +3,7 @@ import { LocalizationProvider, MobileTimePicker } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { useNavigate } from "react-router";
+import Logo from "../assets/logo.png"
 
 const pickerTheme = createTheme({
   components: {
@@ -90,7 +91,7 @@ export default function TimerSetup() {
 
   return (
     <div className="p-6 bg-[#FFF2EB] shadow-0 md:shadow-lg rounded-2xl h-[35rem] w-[20rem] flex flex-col justify-around items-center">
-      <img src="src/assets/logo.png" alt="Logo" />
+      <img src={Logo} alt="Logo" />
 
       <input
         type="text"
