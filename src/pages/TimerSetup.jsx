@@ -3,7 +3,8 @@ import { LocalizationProvider, MobileTimePicker } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { useNavigate } from "react-router";
-import Logo from "../assets/chrono-logo.png"
+import { motion } from "framer-motion";
+import Logo from "../assets/chrono-logo.png";
 
 const pickerTheme = createTheme({
   components: {
@@ -77,7 +78,6 @@ export default function TimerSetup() {
     } else if (totalSeconds <= 0) {
       alert("Please set a valid duration");
     } else {
-      // Save timer data for use in TimerRun
       localStorage.setItem("timerData", JSON.stringify({
         task,
         durationSeconds: totalSeconds,
@@ -90,15 +90,26 @@ export default function TimerSetup() {
   };
 
   return (
-    <div className="p-6 bg-[#FFF2EB] shadow-0 md:shadow-lg rounded-2xl h-[35rem] w-[20rem] flex flex-col justify-around items-center">
-      <img src={Logo} alt="Logo" />
+    <motion.div
+      initial={{ opacity: 0, y: 40 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+      className="p-6 bg-[#FFF2EB] shadow-0 md:shadow-lg rounded-2xl h-[35rem] w-[20rem] flex flex-col justify-around items-center"
+    >
+      <motion.img
+        src={Logo}
+        alt="Logo"
+        initial={{ scale: 0.8, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
+      />
 
       <input
         type="text"
         value={task}
         onChange={(e) => setTask(e.target.value)}
         placeholder="Enter task name"
-        className="w-full mb-4 p-2 border-2 border-transparent focus:border-[#FF9898] rounded-lg bg-white outline-none"
+        className="w-full mb-4 p-2 border-2 border-transparent focus:border-[#FF9898] rounded-lg bg-white outline-none transition duration-300 ease-in-out"
       />
 
       <LocalizationProvider dateAdapter={AdapterDateFns}>
@@ -117,25 +128,13 @@ export default function TimerSetup() {
                 sx: {
                   "& *": {
                     border: "none !important",
-                    borderBottom: "none !important",
-                    "&:before": { display: "none !important" },
-                    "&:after": { display: "none !important" },
+                    "&:before, &:after": { display: "none !important" },
                   },
                   "& .MuiOutlinedInput-root, & .MuiInput-root, & .MuiFilledInput-root": {
                     "& fieldset": { display: "none !important" },
                     "&:hover fieldset": { display: "none !important" },
                     "&.Mui-focused fieldset": { display: "none !important" },
-                    "&:before": { display: "none !important" },
-                    "&:after": { display: "none !important" },
-                    "&:hover:not(.Mui-disabled):before": { display: "none !important" },
                     border: "none !important",
-                    borderBottom: "none !important",
-                  },
-                  "& .MuiInputBase-root": {
-                    border: "none !important",
-                    borderBottom: "none !important",
-                    "&:before": { display: "none !important" },
-                    "&:after": { display: "none !important" },
                   },
                   "& .MuiInputLabel-root": { color: "#FF9898" },
                   "& .MuiInputLabel-root.Mui-focused": { color: "#ff4d6d" },
@@ -150,12 +149,14 @@ export default function TimerSetup() {
         </ThemeProvider>
       </LocalizationProvider>
 
-      <button
+      <motion.button
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
         onClick={handleStart}
-        className="mt-4 w-full px-4 py-2 bg-[#FF9898] text-white font-bold rounded-lg hover:bg-[#ff4d6d] focus:bg-[#ff4d6d]"
+        className="mt-4 w-full px-4 py-2 bg-[#FF9898] text-white font-bold rounded-lg hover:bg-[#ff4d6d] focus:bg-[#ff4d6d] transition duration-200"
       >
         Start Timer
-      </button>
-    </div>
+      </motion.button>
+    </motion.div>
   );
 }

@@ -7,8 +7,8 @@ import { useNavigate } from "react-router";
 export default function TimerRun() {
   const navigate = useNavigate();
   const timerRef = useRef(null);
+  const alarmRef = useRef(null); 
 
-  // Get task & duration from localStorage
   const savedData = JSON.parse(localStorage.getItem("timerData") || "{}");
   const { task, durationSeconds } = savedData;
 
@@ -16,7 +16,6 @@ export default function TimerRun() {
   const [initialDuration] = useState(durationSeconds || 0);
   const [isRunning, setIsRunning] = useState(false);
 
-  // On first load
   useEffect(() => {
     if (!task || durationSeconds === undefined) {
       navigate("/");
@@ -27,10 +26,9 @@ export default function TimerRun() {
     const storedRunning = localStorage.getItem("isRunning") === "true";
 
     setSecondsLeft(storedSeconds);
-    setIsRunning(false); // Don't auto-run
+    setIsRunning(false);
   }, [task, durationSeconds, navigate]);
 
-  // Countdown logic
   useEffect(() => {
     if (isRunning && secondsLeft > 0) {
       timerRef.current = setInterval(() => {
@@ -44,6 +42,13 @@ export default function TimerRun() {
             localStorage.removeItem("timerData");
             localStorage.removeItem("secondsLeft");
             localStorage.removeItem("isRunning");
+
+            if (alarmRef.current) {
+              alarmRef.current.play().catch((e) => {
+                console.warn("Alarm failed to play:", e);
+              });
+            }
+
             alert("Time's up!");
           }
 
@@ -80,10 +85,10 @@ export default function TimerRun() {
   };
 
   return (
-    <div className="p-6 bg-[#FFF2EB] shadow-0 md:shadow-lg rounded-2xl h-full md:h-[35rem] w-full md:w-[20rem] flex flex-col justify-around items-center">
+    <div className="p-6 bg-[#FFF2EB] shadow-0 md:shadow-lg rounded-2xl h-full sm:h-[35rem] w-full sm:w-[20rem] flex flex-col justify-around items-center">
       <h1 className="text-2xl font-bold mb-4 text-center">{task}</h1>
 
-      <div style={{ position: 'relative', width: 200, height: 200 }}>
+      <div className="relative w-[200px] h-[200px]">
         <CircularProgressbar
           value={progressValue}
           strokeWidth={16}
@@ -132,17 +137,31 @@ export default function TimerRun() {
       </div>
 
       <div className="flex justify-around items-center w-full">
-        <FaCircleChevronLeft className="text-[#FF9898] bg-white rounded-full w-12 h-12 hover:text-[#ff4d6d]" onClick={() => navigate("/")} />
+        <FaCircleChevronLeft
+          className="text-[#FF9898] bg-white rounded-full w-12 h-12 hover:text-[#ff4d6d] focus:text-[#ff4d6d]"
+          onClick={() => navigate("/")}
+        />
 
         {!isRunning && secondsLeft > 0 && (
-          <FaCirclePlay className="text-[#FF9898] bg-white rounded-full w-12 h-12 hover:text-[#ff4d6d]" onClick={resumeTimer} />
+          <FaCirclePlay
+            className="text-[#FF9898] bg-white rounded-full w-12 h-12 hover:text-[#ff4d6d] focus:text-[#ff4d6d]"
+            onClick={resumeTimer}
+          />
         )}
         {isRunning && (
-          <FaCirclePause className="text-[#FF9898] bg-white rounded-full w-12 h-12 hover:text-[#ff4d6d]" onClick={stopTimer} />
+          <FaCirclePause
+            className="text-[#FF9898] bg-white rounded-full w-12 h-12 hover:text-[#ff4d6d] focus:text-[#ff4d6d]"
+            onClick={stopTimer}
+          />
         )}
 
-        <FaCircleStop className="text-[#FF9898] bg-white rounded-full w-12 h-12 hover:text-[#ff4d6d]" onClick={resetTimer} />
+        <FaCircleStop
+          className="text-[#FF9898] bg-white rounded-full w-12 h-12 hover:text-[#ff4d6d] focus:text-[#ff4d6d]"
+          onClick={resetTimer}
+        />
       </div>
+
+      <audio ref={alarmRef} src="/alarm.mp3" preload="auto" />
     </div>
   );
 }

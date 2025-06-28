@@ -1,12 +1,31 @@
-# React + Vite
+<div align="center">
+  <img src="src/assets/chrono-logo.png" alt="Chrono-Task Logo" width="200"/>
+</div>
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# ⏱️ Chrono-Task
 
-Currently, two official plugins are available:
+**Chrono-Task** is a minimalist and efficient task timer web app. It helps users stay focused and productive by letting them set custom tasks and durations, with an alarm notification when time is up.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Features
 
-## Expanding the ESLint configuration
+- ✍️ **Write Task Name**: Input and label your current task
+- ⏳ **Set Custom Duration**: Define how long the task should take
+- 🔔 **Alarm Notification**: Get alerted with an alarm when your time is up
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🛠️ Built With
+
+- React JS
+- Tailwind CSS
+- Material UI
+
+## 🌐 Live Demo
+
+[Try Chrono-Task](https://chrono-task-two.vercel.app/)
+
+## 📸 Preview
+
+### Home Screen
+![Home Screen](public/screenshots/home.png)
+
+### Task Timer
+![Task Timer](public/screenshots/task-timer.png)
