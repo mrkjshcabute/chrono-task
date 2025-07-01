@@ -111,25 +111,25 @@ export default function TimerRun() {
         >
           {secondsLeft >= 3600 ? (
             <>
-              <div style={{ fontSize: 16 }}>
+              <div className="text-[28px] font-bold">
                 {Math.floor(secondsLeft / 3600)} hr
               </div>
-              <div style={{ fontSize: 14 }}>
+              <div className="text-[14px]">
                 {Math.floor((secondsLeft % 3600) / 60)}:
                 {(secondsLeft % 60).toString().padStart(2, '0')}
               </div>
             </>
           ) : secondsLeft >= 60 ? (
             <>
-              <div className="text-3xl font-bold">
+              <div className="text-[28px] font-bold">
                 {Math.floor(secondsLeft / 60)} min
               </div>
-              <div style={{ fontSize: 14 }}>
+              <div className="text-[14px]">
                 {secondsLeft % 60} sec
               </div>
             </>
           ) : (
-            <div className="text-3xl font-bold">
+            <div className="text-[28px] font-bold">
               {secondsLeft} sec
             </div>
           )}
